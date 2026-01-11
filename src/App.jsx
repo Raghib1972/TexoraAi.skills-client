@@ -13,7 +13,8 @@ import ExploreFreeServices from "./pages/Landing/ExploreFreeServices";
 import Watchnow from "./pages/Landing/Watchnow";
 import LMSHomepage from "./pages/Landing/LMSHomepage";
 import CourseDetail from "./pages/Landing/CourseDetailsPage";
-import Syllabus from "./pages/landing/SyllabusPage";
+import SyllabusPage from "./pages/Landing/SyllabusPage";
+
 
 /* ===== TRAINER ===== */
 import ApplyTrainer from "./Trainer/ApplyTrainer";
@@ -99,7 +100,8 @@ function App() {
       <Route path="/explore-programs" element={<ExploreFreeServices />} />
       <Route path="/watch-demo" element={<Watchnow />} />
       <Route path="/course-details" element={<CourseDetail />} />
-      <Route path="/syllabus" element={<Syllabus />} />
+      <Route path="/syllabus" element={<SyllabusPage />} />
+
 
       {/* ===== FALLBACK ===== */}
       <Route path="*" element={<LMSHomepage />} />
