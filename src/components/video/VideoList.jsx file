@@ -1,0 +1,56 @@
+import React, { useEffect, useState } from "react";
+import videoService from "../../services/videoService";
+
+const VideoList = () => {
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    videoService
+      .getAllVideos()
+      .then((res) => {
+        setVideos(res.data);
+      })
+      .catch((err) => {
+        console.error("Failed to load videos", err);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return <p className="text-slate-400">Loading videos...</p>;
+  }
+
+  return (
+    <div className="space-y-6">
+      <h1 className="text-xl font-semibold text-slate-100">Videos</h1>
+
+      {videos.length === 0 && (
+        <p className="text-slate-400">No videos uploaded yet.</p>
+      )}
+
+      {videos.map((video) => (
+        <div
+          key={video.id}
+          className="rounded-xl bg-slate-900 border border-slate-700 p-4"
+        >
+          <p className="text-sm font-semibold text-slate-100 mb-2">
+            {video.originalFileName}
+          </p>
+
+          <video
+            controls
+            className="w-full rounded-lg"
+            src={videoService.getVideoStreamUrl(video.storedFileName)}
+          />
+
+          <p className="text-xs text-slate-400 mt-2">
+            Size: {Math.round(video.size / 1024)} KB
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default VideoList;
